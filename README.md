@@ -24,6 +24,7 @@ An orchestrator plans which agents to run. Each agent acts through tools, the gr
 
 |  |  |
 |---|---|
+| **Domains** | Agentic AI, LLM applications, NLP, RAG, MLOps, AI safety |
 | **Orchestration** | LangGraph state graph with conditional routing and approval interrupts |
 | **Tools** | One MCP server for calendar, rooms, speech-to-text, and email |
 | **Memory** | ChromaDB retrieval over past agendas, minutes, and decisions |
