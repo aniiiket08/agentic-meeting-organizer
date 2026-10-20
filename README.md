@@ -1,6 +1,6 @@
 <div align="center">
 
-# Meeting Organizer Agent
+# Meeting Workflow Engine
 
 **A multi-agent system that schedules, prepares, transcribes, and follows up on meetings, with a human approving everything that goes out.**
 
