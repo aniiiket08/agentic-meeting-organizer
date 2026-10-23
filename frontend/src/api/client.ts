@@ -1,6 +1,10 @@
 import { getAuthToken } from "../lib/theme";
 
-const BASE_URL = "/api/v1";
+// In dev, Vite proxy rewrites /api → localhost:8000 (see vite.config.ts).
+// In production (Vercel), VITE_API_URL must point to your deployed backend URL.
+const BASE_URL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api/v1`
+  : "/api/v1";
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const token = getAuthToken();
