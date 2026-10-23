@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       })
         .then((res) => (res.ok ? res.json() : Promise.reject()))
         .then((userData) => setUser(userData))
-        .catch(() => {
+        .catch((error: unknown) => {
           console.error("Session validation failed:", error);
           removeAuthToken();
           setTokenState(null);
