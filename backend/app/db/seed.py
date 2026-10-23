@@ -66,6 +66,7 @@ def seed_database(db: Session) -> None:
             user.name = name
             user.email = email
             user.role = role
+            user.hashed_password = hashed_password
     if created_users:
         logger.info("Seeded %d missing university users.", created_users)
 
