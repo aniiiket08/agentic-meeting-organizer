@@ -1,0 +1,25 @@
+# Keep the build context small: skip virtualenvs, node modules and local data.
+.venv/
+venv/
+env/
+node_modules/
+frontend/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.git/
+.gitignore
+.dockerignore
+data/chroma/
+data/*.db
+data/*.db.*
+docs/
+*.db
+*.db.*
+*.bak
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,77 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Keep the SQLite file inside ./data so it is persisted on the host
+      # across container restarts.
+      DATABASE_URL: sqlite:///./data/sql_app.db
+      PYTHONPATH: /app/backend
+    volumes:
+      - ./backend:/app/backend
+      - ./data:/app/data
+    depends_on:
+      - postgres
+      - chroma
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    env_file:
+      - .env
+    environment:
+      # The backend is a separate compose service, not localhost.
+      VITE_PROXY_TARGET: http://backend:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.mcp
+    ports:
+      - "8765:8765"
+    env_file:
+      - .env
+    environment:
+      PYTHONPATH: /app/backend
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: 8765
+    volumes:
+      - ./backend:/app/backend
+      - ./data:/app/data
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: meeting_organizer
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  chroma:
+    image: chromadb/chroma:0.4.24
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+
+volumes:
+  postgres_data:
+  chroma_data:

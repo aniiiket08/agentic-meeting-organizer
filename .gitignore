@@ -1,0 +1,24 @@
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.egg-info/
+
+# Frontend
+node_modules/
+frontend/dist/
+
+# Database
+sql_app.db
+data/chroma/
+data/*.db
+*.bak
+
+# OS
+.DS_Store
+Thumbs.db

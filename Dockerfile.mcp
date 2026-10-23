@@ -1,0 +1,38 @@
+# Meeting Organizer Agent - MCP Server
+# Build context: project root
+#   docker build -f Dockerfile.mcp -t moa-mcp .
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
+        libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY pyproject.toml /app/pyproject.toml
+RUN python - <<'PY' > /tmp/requirements.txt
+import pathlib, tomllib
+data = tomllib.loads(pathlib.Path("/app/pyproject.toml").read_text(encoding="utf-8"))
+for dep in data["project"]["dependencies"]:
+    print(dep)
+PY
+RUN pip install --upgrade pip setuptools wheel \
+    && pip install -r /tmp/requirements.txt \
+    && rm /tmp/requirements.txt
+
+COPY backend /app/backend
+COPY data /app/data
+
+ENV PYTHONPATH=/app/backend \
+    MCP_HOST=0.0.0.0 \
+    MCP_PORT=8765
+
+EXPOSE 8765
+
+CMD ["python", "-m", "mcp_server.server"]

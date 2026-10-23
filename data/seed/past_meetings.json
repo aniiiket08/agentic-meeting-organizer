@@ -1,0 +1,32 @@
+[
+  {
+    "meeting_id": 101,
+    "title": "Lab Equipment Allocation & Budget Review",
+    "date": "2026-09-01",
+    "text": "Discussion on GPU cluster purchases. Decision: Approved $15,000 for 4x H100 GPUs for the AI lab. Action Item: Coordinator User to draft purchase order by Sep 15. Unresolved: GPU cooling rack setup pending facility review."
+  },
+  {
+    "meeting_id": 102,
+    "title": "Curriculum Modernization Committee",
+    "date": "2026-09-08",
+    "text": "Reviewed proposed AI ethics module. Decision: Add 2-week agentic AI safety lab unit to CS402. Action Item: Approver Chair to update syllabus draft by Sep 20. Unresolved: Guest speaker invitation for AI governance."
+  },
+  {
+    "meeting_id": 103,
+    "title": "Capstone Evaluation Criteria Sync",
+    "date": "2026-09-15",
+    "text": "Finalized grading rubric breakdown. Decision: 25% weekly labs, 10% skill assignment, 10% MCP, 15% multi-agent workflow, 10% research report, 25% capstone, 5% presentation. Action Item: Admin User to upload rubric PDF."
+  },
+  {
+    "meeting_id": 104,
+    "title": "Department Security & PII Redaction Workshop",
+    "date": "2026-09-22",
+    "text": "Reviewed data protection policies for student transcript processing. Decision: Mandatory PII redaction (emails, phone numbers, IDs) before any LLM prompt submission. Action Item: Lead Developer to integrate pii.py middleware."
+  },
+  {
+    "meeting_id": 105,
+    "title": "Quarterly Operations & Room Scheduling",
+    "date": "2026-09-29",
+    "text": "Addressed room double-booking issues in Seminar Hall C. Decision: All room reservations must pass through automated conflict checker with double-booking prevention. Action Item: Coordinator User to configure room DB capacity rules."
+  }
+]
