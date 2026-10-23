@@ -3,15 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../lib/auth";
 import { ThemeToggle } from "../components/ThemeToggle";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/api/v1`
+  : "/api/v1";
+
 const DEV_LOGIN_ROLES = [
-  { username: "chairman",  label: "Chairman" },
+  { username: "chairman", label: "Chairman" },
   { username: "principal", label: "Principal" },
-  { username: "hod",       label: "HOD" },
-  { username: "teacher",   label: "Teacher" },
-  { username: "aniket",    label: "Aniket" },
-  { username: "sujal",     label: "Sujal" },
-  { username: "viraj",     label: "Viraj" },
-  { username: "sarvesh",   label: "Sarvesh" },
+  { username: "hod", label: "HOD" },
+  { username: "teacher", label: "Teacher" },
+  { username: "aniket", label: "Aniket" },
+  { username: "sujal", label: "Sujal" },
+  { username: "viraj", label: "Viraj" },
+  { username: "sarvesh", label: "Sarvesh" },
 ] as const;
 
 const IS_DEV = import.meta.env?.VITE_APP_ENV === "development";
@@ -19,14 +23,14 @@ const IS_DEV = import.meta.env?.VITE_APP_ENV === "development";
 export const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError]       = useState<string | null>(null);
-  const [loading, setLoading]   = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   const completeLogin = async (token: string) => {
-    const meRes = await fetch("/api/v1/auth/me", {
+    const meRes = await fetch(`${API_BASE_URL}/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!meRes.ok) throw new Error("Could not load profile after sign in.");
@@ -40,7 +44,7 @@ export const Login: React.FC = () => {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch("/api/v1/auth/login", {
+      const res = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -62,7 +66,7 @@ export const Login: React.FC = () => {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch("/api/v1/auth/dev/login", {
+      const res = await fetch(`${API_BASE_URL}/auth/dev/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: devUsername }),
